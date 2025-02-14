@@ -39,7 +39,7 @@ const ScoutingApp = () => {
           <Text>Left Starting Area</Text>
         </View>
 
-        <Text style={{ fontSize: 20, fontWeight: 'bold', marginTop: 10 }}>Teleoperated</Text>
+        <Text style={{ fontSize: 20, fontWeight: 'bold', marginTop: 30 }}>Teleoperated</Text>
         <Text>Coral Scored (L1): {teleopCoralL1}</Text>
         <Button title="+" onPress={() => setTeleopCoralL1(teleopCoralL1 + 1)} />
         <Button title="-" onPress={() => setTeleopCoralL1(Math.max(0, teleopCoralL1 - 1))} />
