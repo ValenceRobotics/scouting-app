@@ -1,56 +1,83 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, CheckBox, Button, ScrollView } from 'react-native';
+import { View, Text, TextInput, Button, ScrollView } from 'react-native';
+import { Checkbox, Provider as PaperProvider } from 'react-native-paper';
 
 const ScoutingApp = () => {
-  const [autonomous, setAutonomous] = useState({ coralLow: 0, coralMid: 0, coralHigh: 0, leftZone: false });
-  const [teleop, setTeleop] = useState({ coralLow: 0, coralMid: 0, coralHigh: 0, algaeRemoved: 0, algaeBarge: 0, algaeProcessor: 0, defense: false });
-  const [endgame, setEndgame] = useState({ park: false, deepClimb: false, shallowClimb: false });
+  const [autonCoralLow, setAutonCoralLow] = useState(0);
+  const [autonCoralMid, setAutonCoralMid] = useState(0);
+  const [autonCoralHigh, setAutonCoralHigh] = useState(0);
+  const [leave, setLeave] = useState(false);
+
+  const [teleopCoralLow, setTeleopCoralLow] = useState(0);
+  const [teleopCoralMid, setTeleopCoralMid] = useState(0);
+  const [teleopCoralHigh, setTeleopCoralHigh] = useState(0);
+  const [algaeRemoved, setAlgaeRemoved] = useState(0);
+  const [algaeBarge, setAlgaeBarge] = useState(0);
+  const [algaeProcessor, setAlgaeProcessor] = useState(0);
+  const [defense, setDefense] = useState(false);
+
+  const [park, setPark] = useState(false);
+  const [deepClimb, setDeepClimb] = useState(false);
+  const [shallowClimb, setShallowClimb] = useState(false);
   const [notes, setNotes] = useState('');
 
   return (
-    <ScrollView style={{ padding: 20 }}>
-      {/* Autonomous Section */}
-      <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Autonomous</Text>
-      <Text>Coral Scored (Low): {autonomous.coralLow}</Text>
-      <Button title="+" onPress={() => setAutonomous({ ...autonomous, coralLow: autonomous.coralLow + 1 })} />
-      <Text>Coral Scored (Mid): {autonomous.coralMid}</Text>
-      <Button title="+" onPress={() => setAutonomous({ ...autonomous, coralMid: autonomous.coralMid + 1 })} />
-      <Text>Coral Scored (High): {autonomous.coralHigh}</Text>
-      <Button title="+" onPress={() => setAutonomous({ ...autonomous, coralHigh: autonomous.coralHigh + 1 })} />
-      <CheckBox value={autonomous.leftZone} onValueChange={(value) => setAutonomous({ ...autonomous, leftZone: value })} /><Text>Left Starting Zone</Text>
+    <PaperProvider>
+      <ScrollView style={{ padding: 20 }}>
+        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Autonomous</Text>
+        <Text>Coral Scored (Low): {autonCoralLow}</Text>
+        <Button title="+" onPress={() => setAutonCoralLow(autonCoralLow + 1)} />
+        <Text>Coral Scored (Mid): {autonCoralMid}</Text>
+        <Button title="+" onPress={() => setAutonCoralMid(autonCoralMid + 1)} />
+        <Text>Coral Scored (High): {autonCoralHigh}</Text>
+        <Button title="+" onPress={() => setAutonCoralHigh(autonCoralHigh + 1)} />
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Checkbox status={leave ? 'checked' : 'unchecked'} onPress={() => setLeave(!leave)} />
+          <Text>Left Starting Area</Text>
+        </View>
 
-      {/* Teleoperated Section */}
-      <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Teleoperated</Text>
-      <Text>Coral Scored (Low): {teleop.coralLow}</Text>
-      <Button title="+" onPress={() => setTeleop({ ...teleop, coralLow: teleop.coralLow + 1 })} />
-      <Text>Coral Scored (Mid): {teleop.coralMid}</Text>
-      <Button title="+" onPress={() => setTeleop({ ...teleop, coralMid: teleop.coralMid + 1 })} />
-      <Text>Coral Scored (High): {teleop.coralHigh}</Text>
-      <Button title="+" onPress={() => setTeleop({ ...teleop, coralHigh: teleop.coralHigh + 1 })} />
-      <Text>Algae Removed: {teleop.algaeRemoved}</Text>
-      <Button title="+" onPress={() => setTeleop({ ...teleop, algaeRemoved: teleop.algaeRemoved + 1 })} />
-      <Text>Algae Scored (Barge): {teleop.algaeBarge}</Text>
-      <Button title="+" onPress={() => setTeleop({ ...teleop, algaeBarge: teleop.algaeBarge + 1 })} />
-      <Text>Algae Scored (Processor): {teleop.algaeProcessor}</Text>
-      <Button title="+" onPress={() => setTeleop({ ...teleop, algaeProcessor: teleop.algaeProcessor + 1 })} />
-      <CheckBox value={teleop.defense} onValueChange={(value) => setTeleop({ ...teleop, defense: value })} /><Text>Played Defense</Text>
+        <Text style={{ fontSize: 20, fontWeight: 'bold', marginTop: 10 }}>Teleoperated</Text>
+        <Text>Coral Scored (Low): {teleopCoralLow}</Text>
+        <Button title="+" onPress={() => setTeleopCoralLow(teleopCoralLow + 1)} />
+        <Text>Coral Scored (Mid): {teleopCoralMid}</Text>
+        <Button title="+" onPress={() => setTeleopCoralMid(teleopCoralMid + 1)} />
+        <Text>Coral Scored (High): {teleopCoralHigh}</Text>
+        <Button title="+" onPress={() => setTeleopCoralHigh(teleopCoralHigh + 1)} />
+        <Text>Algae Removed: {algaeRemoved}</Text>
+        <Button title="+" onPress={() => setAlgaeRemoved(algaeRemoved + 1)} />
+        <Text>Algae Scored in Barge: {algaeBarge}</Text>
+        <Button title="+" onPress={() => setAlgaeBarge(algaeBarge + 1)} />
+        <Text>Algae Scored in Processor: {algaeProcessor}</Text>
+        <Button title="+" onPress={() => setAlgaeProcessor(algaeProcessor + 1)} />
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Checkbox status={defense ? 'checked' : 'unchecked'} onPress={() => setDefense(!defense)} />
+          <Text>Played Defense</Text>
+        </View>
 
-      {/* Endgame Section */}
-      <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Endgame</Text>
-      <CheckBox value={endgame.park} onValueChange={(value) => setEndgame({ ...endgame, park: value })} /><Text>Park</Text>
-      <CheckBox value={endgame.deepClimb} onValueChange={(value) => setEndgame({ ...endgame, deepClimb: value })} /><Text>Deep Climb</Text>
-      <CheckBox value={endgame.shallowClimb} onValueChange={(value) => setEndgame({ ...endgame, shallowClimb: value })} /><Text>Shallow Climb</Text>
+        <Text style={{ fontSize: 20, fontWeight: 'bold', marginTop: 10 }}>Endgame</Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Checkbox status={park ? 'checked' : 'unchecked'} onPress={() => setPark(!park)} />
+          <Text>Parked</Text>
+        </View>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Checkbox status={deepClimb ? 'checked' : 'unchecked'} onPress={() => setDeepClimb(!deepClimb)} />
+          <Text>Deep Climb</Text>
+        </View>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Checkbox status={shallowClimb ? 'checked' : 'unchecked'} onPress={() => setShallowClimb(!shallowClimb)} />
+          <Text>Shallow Climb</Text>
+        </View>
 
-      {/* Notes Section */}
-      <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Notes</Text>
-      <TextInput
-        placeholder="Enter notes here..."
-        value={notes}
-        onChangeText={setNotes}
-        multiline
-        style={{ borderWidth: 1, padding: 10, height: 100 }}
-      />
-    </ScrollView>
+        <Text style={{ fontSize: 20, fontWeight: 'bold', marginTop: 10 }}>Notes</Text>
+        <TextInput 
+          style={{ borderWidth: 1, padding: 10, marginTop: 5 }}
+          placeholder="Enter notes here..."
+          value={notes}
+          onChangeText={setNotes}
+          multiline
+        />
+      </ScrollView>
+    </PaperProvider>
   );
 };
 
