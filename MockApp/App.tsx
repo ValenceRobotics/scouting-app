@@ -27,11 +27,14 @@ const ScoutingApp = () => {
     <PaperProvider>
       <ScrollView style={{ padding: 15 }}>
         <Text style={{ fontSize: 27, fontWeight: 'bold' }}>Autonomous</Text>
-        {[autonCoralL1, autonCoralL2, autonCoralL3, autonCoralL4].map((value, index) => (
+        {[{ state: autonCoralL1, setState: setAutonCoralL1 },
+          { state: autonCoralL2, setState: setAutonCoralL2 },
+          { state: autonCoralL3, setState: setAutonCoralL3 },
+          { state: autonCoralL4, setState: setAutonCoralL4 }].map((item, index) => (
           <View key={index} style={{ marginVertical: 2 }}>
-            <Text style={{ fontSize: 22 }}>Coral Scored (L{index + 1}): {value}</Text>
-            <Button title="+" onPress={() => eval(`setAutonCoralL${index + 1}(${value} + 1)`) } />
-            <Button title="-" onPress={() => eval(`setAutonCoralL${index + 1}(Math.max(0, ${value} - 1))`)} />
+            <Text style={{ fontSize: 22 }}>Coral Scored (L{index + 1}): {item.state}</Text>
+            <Button title="+" onPress={() => item.setState(item.state + 1)} />
+            <Button title="-" onPress={() => item.setState(Math.max(0, item.state - 1))} />
           </View>
         ))}
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -40,11 +43,14 @@ const ScoutingApp = () => {
         </View>
 
         <Text style={{ fontSize: 27, fontWeight: 'bold', marginTop: 15 }}>Teleoperated</Text>
-        {[teleopCoralL1, teleopCoralL2, teleopCoralL3, teleopCoralL4].map((value, index) => (
+        {[{ state: teleopCoralL1, setState: setTeleopCoralL1 },
+          { state: teleopCoralL2, setState: setTeleopCoralL2 },
+          { state: teleopCoralL3, setState: setTeleopCoralL3 },
+          { state: teleopCoralL4, setState: setTeleopCoralL4 }].map((item, index) => (
           <View key={index} style={{ marginVertical: 2 }}>
-            <Text style={{ fontSize: 22 }}>Coral Scored (L{index + 1}): {value}</Text>
-            <Button title="+" onPress={() => eval(`setTeleopCoralL${index + 1}(${value} + 1)`) } />
-            <Button title="-" onPress={() => eval(`setTeleopCoralL${index + 1}(Math.max(0, ${value} - 1))`)} />
+            <Text style={{ fontSize: 22 }}>Coral Scored (L{index + 1}): {item.state}</Text>
+            <Button title="+" onPress={() => item.setState(item.state + 1)} />
+            <Button title="-" onPress={() => item.setState(Math.max(0, item.state - 1))} />
           </View>
         ))}
         <Text style={{ fontSize: 22 }}>Algae Removed: {algaeRemoved}</Text>
