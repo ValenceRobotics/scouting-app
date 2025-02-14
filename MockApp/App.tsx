@@ -35,7 +35,7 @@ const ScoutingApp = () => {
 
   return (
     <PaperProvider>
-      <ScrollView style={{ padding: 15, backgroundColor: '#f0f0f0' }}>
+      <ScrollView style={{ padding: 15, backgroundColor: 'white' }}>
         <Text style={styles.header}>Autonomous</Text>
         {renderCounter('Coral Scored (L1)', autonCoralL1, setAutonCoralL1)}
         {renderCounter('Coral Scored (L2)', autonCoralL2, setAutonCoralL2)}
