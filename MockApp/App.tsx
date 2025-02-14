@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, ScrollView } from 'react-native';
+import { View, Text, TextInput, Button, ScrollView, TouchableOpacity } from 'react-native';
 import { Checkbox, Provider as PaperProvider } from 'react-native-paper';
 
 const ScoutingApp = () => {
@@ -23,67 +23,59 @@ const ScoutingApp = () => {
   const [shallowClimb, setShallowClimb] = useState(false);
   const [notes, setNotes] = useState('');
 
+  const renderCounter = (label, state, setState) => (
+    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginVertical: 2 }}>
+      <Text style={{ fontSize: 22 }}>{label}: {state}</Text>
+      <View style={{ flexDirection: 'row' }}>
+        <TouchableOpacity onPress={() => setState(state + 1)} style={styles.button}><Text style={styles.buttonText}>+</Text></TouchableOpacity>
+        <TouchableOpacity onPress={() => setState(Math.max(0, state - 1))} style={styles.button}><Text style={styles.buttonText}>-</Text></TouchableOpacity>
+      </View>
+    </View>
+  );
+
   return (
     <PaperProvider>
-      <ScrollView style={{ padding: 15 }}>
-        <Text style={{ fontSize: 27, fontWeight: 'bold' }}>Autonomous</Text>
-        {[{ state: autonCoralL1, setState: setAutonCoralL1 },
-          { state: autonCoralL2, setState: setAutonCoralL2 },
-          { state: autonCoralL3, setState: setAutonCoralL3 },
-          { state: autonCoralL4, setState: setAutonCoralL4 }].map((item, index) => (
-          <View key={index} style={{ marginVertical: 2 }}>
-            <Text style={{ fontSize: 22 }}>Coral Scored (L{index + 1}): {item.state}</Text>
-            <Button title="+" onPress={() => item.setState(item.state + 1)} />
-            <Button title="-" onPress={() => item.setState(Math.max(0, item.state - 1))} />
-          </View>
-        ))}
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+      <ScrollView style={{ padding: 15, backgroundColor: '#f0f0f0' }}>
+        <Text style={styles.header}>Autonomous</Text>
+        {renderCounter('Coral Scored (L1)', autonCoralL1, setAutonCoralL1)}
+        {renderCounter('Coral Scored (L2)', autonCoralL2, setAutonCoralL2)}
+        {renderCounter('Coral Scored (L3)', autonCoralL3, setAutonCoralL3)}
+        {renderCounter('Coral Scored (L4)', autonCoralL4, setAutonCoralL4)}
+        <View style={styles.checkboxContainer}>
           <Checkbox status={leave ? 'checked' : 'unchecked'} onPress={() => setLeave(!leave)} />
           <Text style={{ fontSize: 22 }}>Left Starting Area</Text>
         </View>
 
-        <Text style={{ fontSize: 27, fontWeight: 'bold', marginTop: 15 }}>Teleoperated</Text>
-        {[{ state: teleopCoralL1, setState: setTeleopCoralL1 },
-          { state: teleopCoralL2, setState: setTeleopCoralL2 },
-          { state: teleopCoralL3, setState: setTeleopCoralL3 },
-          { state: teleopCoralL4, setState: setTeleopCoralL4 }].map((item, index) => (
-          <View key={index} style={{ marginVertical: 2 }}>
-            <Text style={{ fontSize: 22 }}>Coral Scored (L{index + 1}): {item.state}</Text>
-            <Button title="+" onPress={() => item.setState(item.state + 1)} />
-            <Button title="-" onPress={() => item.setState(Math.max(0, item.state - 1))} />
-          </View>
-        ))}
-        <Text style={{ fontSize: 22 }}>Algae Removed: {algaeRemoved}</Text>
-        <Button title="+" onPress={() => setAlgaeRemoved(algaeRemoved + 1)} />
-        <Button title="-" onPress={() => setAlgaeRemoved(Math.max(0, algaeRemoved - 1))} />
-        <Text style={{ fontSize: 22 }}>Algae Scored in Barge: {algaeBarge}</Text>
-        <Button title="+" onPress={() => setAlgaeBarge(algaeBarge + 1)} />
-        <Button title="-" onPress={() => setAlgaeBarge(Math.max(0, algaeBarge - 1))} />
-        <Text style={{ fontSize: 22 }}>Algae Scored in Processor: {algaeProcessor}</Text>
-        <Button title="+" onPress={() => setAlgaeProcessor(algaeProcessor + 1)} />
-        <Button title="-" onPress={() => setAlgaeProcessor(Math.max(0, algaeProcessor - 1))} />
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <Text style={styles.header}>Teleoperated</Text>
+        {renderCounter('Coral Scored (L1)', teleopCoralL1, setTeleopCoralL1)}
+        {renderCounter('Coral Scored (L2)', teleopCoralL2, setTeleopCoralL2)}
+        {renderCounter('Coral Scored (L3)', teleopCoralL3, setTeleopCoralL3)}
+        {renderCounter('Coral Scored (L4)', teleopCoralL4, setTeleopCoralL4)}
+        {renderCounter('Algae Removed', algaeRemoved, setAlgaeRemoved)}
+        {renderCounter('Algae Scored in Barge', algaeBarge, setAlgaeBarge)}
+        {renderCounter('Algae Scored in Processor', algaeProcessor, setAlgaeProcessor)}
+        <View style={styles.checkboxContainer}>
           <Checkbox status={defense ? 'checked' : 'unchecked'} onPress={() => setDefense(!defense)} />
           <Text style={{ fontSize: 22 }}>Played Defense</Text>
         </View>
 
-        <Text style={{ fontSize: 27, fontWeight: 'bold', marginTop: 15 }}>Endgame</Text>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <Text style={styles.header}>Endgame</Text>
+        <View style={styles.checkboxContainer}>
           <Checkbox status={park ? 'checked' : 'unchecked'} onPress={() => setPark(!park)} />
           <Text style={{ fontSize: 22 }}>Parked</Text>
         </View>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <View style={styles.checkboxContainer}>
           <Checkbox status={deepClimb ? 'checked' : 'unchecked'} onPress={() => setDeepClimb(!deepClimb)} />
           <Text style={{ fontSize: 22 }}>Deep Climb</Text>
         </View>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <View style={styles.checkboxContainer}>
           <Checkbox status={shallowClimb ? 'checked' : 'unchecked'} onPress={() => setShallowClimb(!shallowClimb)} />
           <Text style={{ fontSize: 22 }}>Shallow Climb</Text>
         </View>
 
-        <Text style={{ fontSize: 27, fontWeight: 'bold', marginTop: 15 }}>Notes</Text>
+        <Text style={styles.header}>Notes</Text>
         <TextInput 
-          style={{ borderWidth: 1, padding: 10, marginTop: 5, fontSize: 22 }}
+          style={styles.textInput}
           placeholder="Enter notes here..."
           value={notes}
           onChangeText={setNotes}
@@ -92,6 +84,36 @@ const ScoutingApp = () => {
       </ScrollView>
     </PaperProvider>
   );
+};
+
+const styles = {
+  header: {
+    fontSize: 27,
+    fontWeight: 'bold',
+    marginBottom: 5
+  },
+  button: {
+    backgroundColor: '#d3d3d3',
+    padding: 10,
+    marginLeft: 5,
+    borderRadius: 5,
+  },
+  buttonText: {
+    fontSize: 22,
+    fontWeight: 'bold',
+  },
+  checkboxContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 5,
+  },
+  textInput: {
+    borderWidth: 1,
+    padding: 10,
+    marginTop: 5,
+    fontSize: 22,
+    backgroundColor: 'white',
+  }
 };
 
 export default ScoutingApp;
