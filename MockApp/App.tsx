@@ -24,6 +24,9 @@ const ScoutingApp = () => {
   return (
     <PaperProvider>
       <ScrollView style={{ padding: 20 }}>
+        
+        
+        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>       </Text>
         <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Autonomous</Text>
         <Text>Coral Scored (L1): {autonCoralL1}</Text>
         <Button title="+" onPress={() => setAutonCoralL1(autonCoralL1 + 1)} />
