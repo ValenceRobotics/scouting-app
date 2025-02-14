@@ -3,14 +3,14 @@ import { View, Text, TextInput, Button, ScrollView } from 'react-native';
 import { Checkbox, Provider as PaperProvider } from 'react-native-paper';
 
 const ScoutingApp = () => {
-  const [autonCoralLow, setAutonCoralLow] = useState(0);
-  const [autonCoralMid, setAutonCoralMid] = useState(0);
-  const [autonCoralHigh, setAutonCoralHigh] = useState(0);
+  const [autonCoralL1, setAutonCoralL1] = useState(0);
+  const [autonCoralL2, setAutonCoralL2] = useState(0);
+  const [autonCoralL3, setAutonCoralL3] = useState(0);
   const [leave, setLeave] = useState(false);
 
-  const [teleopCoralLow, setTeleopCoralLow] = useState(0);
-  const [teleopCoralMid, setTeleopCoralMid] = useState(0);
-  const [teleopCoralHigh, setTeleopCoralHigh] = useState(0);
+  const [teleopCoralL1, setTeleopCoralL1] = useState(0);
+  const [teleopCoralL2, setTeleopCoralL2] = useState(0);
+  const [teleopCoralL3, setTeleopCoralL3] = useState(0);
   const [algaeRemoved, setAlgaeRemoved] = useState(0);
   const [algaeBarge, setAlgaeBarge] = useState(0);
   const [algaeProcessor, setAlgaeProcessor] = useState(0);
@@ -25,30 +25,39 @@ const ScoutingApp = () => {
     <PaperProvider>
       <ScrollView style={{ padding: 20 }}>
         <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Autonomous</Text>
-        <Text>Coral Scored (Low): {autonCoralLow}</Text>
-        <Button title="+" onPress={() => setAutonCoralLow(autonCoralLow + 1)} />
-        <Text>Coral Scored (Mid): {autonCoralMid}</Text>
-        <Button title="+" onPress={() => setAutonCoralMid(autonCoralMid + 1)} />
-        <Text>Coral Scored (High): {autonCoralHigh}</Text>
-        <Button title="+" onPress={() => setAutonCoralHigh(autonCoralHigh + 1)} />
+        <Text>Coral Scored (L1): {autonCoralL1}</Text>
+        <Button title="+" onPress={() => setAutonCoralL1(autonCoralL1 + 1)} />
+        <Button title="-" onPress={() => setAutonCoralL1(Math.max(0, autonCoralL1 - 1))} />
+        <Text>Coral Scored (L2): {autonCoralL2}</Text>
+        <Button title="+" onPress={() => setAutonCoralL2(autonCoralL2 + 1)} />
+        <Button title="-" onPress={() => setAutonCoralL2(Math.max(0, autonCoralL2 - 1))} />
+        <Text>Coral Scored (L3): {autonCoralL3}</Text>
+        <Button title="+" onPress={() => setAutonCoralL3(autonCoralL3 + 1)} />
+        <Button title="-" onPress={() => setAutonCoralL3(Math.max(0, autonCoralL3 - 1))} />
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <Checkbox status={leave ? 'checked' : 'unchecked'} onPress={() => setLeave(!leave)} />
           <Text>Left Starting Area</Text>
         </View>
 
         <Text style={{ fontSize: 20, fontWeight: 'bold', marginTop: 10 }}>Teleoperated</Text>
-        <Text>Coral Scored (Low): {teleopCoralLow}</Text>
-        <Button title="+" onPress={() => setTeleopCoralLow(teleopCoralLow + 1)} />
-        <Text>Coral Scored (Mid): {teleopCoralMid}</Text>
-        <Button title="+" onPress={() => setTeleopCoralMid(teleopCoralMid + 1)} />
-        <Text>Coral Scored (High): {teleopCoralHigh}</Text>
-        <Button title="+" onPress={() => setTeleopCoralHigh(teleopCoralHigh + 1)} />
+        <Text>Coral Scored (L1): {teleopCoralL1}</Text>
+        <Button title="+" onPress={() => setTeleopCoralL1(teleopCoralL1 + 1)} />
+        <Button title="-" onPress={() => setTeleopCoralL1(Math.max(0, teleopCoralL1 - 1))} />
+        <Text>Coral Scored (L2): {teleopCoralL2}</Text>
+        <Button title="+" onPress={() => setTeleopCoralL2(teleopCoralL2 + 1)} />
+        <Button title="-" onPress={() => setTeleopCoralL2(Math.max(0, teleopCoralL2 - 1))} />
+        <Text>Coral Scored (L3): {teleopCoralL3}</Text>
+        <Button title="+" onPress={() => setTeleopCoralL3(teleopCoralL3 + 1)} />
+        <Button title="-" onPress={() => setTeleopCoralL3(Math.max(0, teleopCoralL3 - 1))} />
         <Text>Algae Removed: {algaeRemoved}</Text>
         <Button title="+" onPress={() => setAlgaeRemoved(algaeRemoved + 1)} />
+        <Button title="-" onPress={() => setAlgaeRemoved(Math.max(0, algaeRemoved - 1))} />
         <Text>Algae Scored in Barge: {algaeBarge}</Text>
         <Button title="+" onPress={() => setAlgaeBarge(algaeBarge + 1)} />
+        <Button title="-" onPress={() => setAlgaeBarge(Math.max(0, algaeBarge - 1))} />
         <Text>Algae Scored in Processor: {algaeProcessor}</Text>
         <Button title="+" onPress={() => setAlgaeProcessor(algaeProcessor + 1)} />
+        <Button title="-" onPress={() => setAlgaeProcessor(Math.max(0, algaeProcessor - 1))} />
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <Checkbox status={defense ? 'checked' : 'unchecked'} onPress={() => setDefense(!defense)} />
           <Text>Played Defense</Text>
