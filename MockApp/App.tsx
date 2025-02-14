@@ -42,7 +42,7 @@ const ScoutingApp = () => {
         {renderCounter('Coral Scored (L3)', autonCoralL3, setAutonCoralL3)}
         {renderCounter('Coral Scored (L4)', autonCoralL4, setAutonCoralL4)}
         <View style={styles.checkboxContainer}>
-          <Checkbox status={leave ? 'checked' : 'unchecked'} onPress={() => setLeave(!leave)} />
+          <Checkbox status={leave ? 'checked' : 'unchecked'} onPress={() => setLeave(!leave)} style={styles.checkbox} />
           <Text style={{ fontSize: 22 }}>Left Starting Area</Text>
         </View>
 
@@ -55,21 +55,21 @@ const ScoutingApp = () => {
         {renderCounter('Algae Scored in Barge', algaeBarge, setAlgaeBarge)}
         {renderCounter('Algae Scored in Processor', algaeProcessor, setAlgaeProcessor)}
         <View style={styles.checkboxContainer}>
-          <Checkbox status={defense ? 'checked' : 'unchecked'} onPress={() => setDefense(!defense)} />
+          <Checkbox status={defense ? 'checked' : 'unchecked'} onPress={() => setDefense(!defense)} style={styles.checkbox} />
           <Text style={{ fontSize: 22 }}>Played Defense</Text>
         </View>
 
         <Text style={styles.header}>Endgame</Text>
         <View style={styles.checkboxContainer}>
-          <Checkbox status={park ? 'checked' : 'unchecked'} onPress={() => setPark(!park)} />
+          <Checkbox status={park ? 'checked' : 'unchecked'} onPress={() => setPark(!park)} style={styles.checkbox} />
           <Text style={{ fontSize: 22 }}>Parked</Text>
         </View>
         <View style={styles.checkboxContainer}>
-          <Checkbox status={deepClimb ? 'checked' : 'unchecked'} onPress={() => setDeepClimb(!deepClimb)} />
+          <Checkbox status={deepClimb ? 'checked' : 'unchecked'} onPress={() => setDeepClimb(!deepClimb)} style={styles.checkbox} />
           <Text style={{ fontSize: 22 }}>Deep Climb</Text>
         </View>
         <View style={styles.checkboxContainer}>
-          <Checkbox status={shallowClimb ? 'checked' : 'unchecked'} onPress={() => setShallowClimb(!shallowClimb)} />
+          <Checkbox status={shallowClimb ? 'checked' : 'unchecked'} onPress={() => setShallowClimb(!shallowClimb)} style={styles.checkbox} />
           <Text style={{ fontSize: 22 }}>Shallow Climb</Text>
         </View>
 
@@ -106,6 +106,11 @@ const styles = {
     flexDirection: 'row',
     alignItems: 'center',
     marginVertical: 5,
+  },
+  checkbox: {
+    borderWidth: 2,
+    borderColor: 'black',
+    borderRadius: 3,
   },
   textInput: {
     borderWidth: 1,
